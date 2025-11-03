@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Status Pendaftaran</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, purple 30%, blue 70%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .status-pending {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .status-approved {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-rejected {
+            background: #dc3545;
+            color: white;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Tracking Status Pendaftaran</h1>
+            <p>Cek status pendaftaran mahasiswa baru</p>
+        </div>
+
+        <div class="content">
+            <form id="trackingForm">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600;">
+                    Masukkan Nomor Registrasi:
+                </label>
+                <input type="text" id="nomorRegistrasi" placeholder="Contoh: PMB20240001" required>
+                <button type="submit" class="btn">🔍 Cek Status</button>
+            </form>
+
+            <div id="resultBox" class="result-box">
+                <!-- Result will be displayed here -->
+            </div>
+
+            <div class="back-link">
+                <a href="home.html">← Kembali ke home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('trackingForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nomorReg = document.getElementById('nomorRegistrasi').value.trim();
+
+            if (!nomorReg) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Input Kosong',
+                    text: 'Masukkan nomor registrasi terlebih dahulu',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            // Show loading
+            Swal.fire({
+                title: 'Mencari data...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Fetch data dari tracking_api.php
+            fetch(`tracking_api.php?nomor=${encodeURIComponent(nomorReg)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Server error');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    Swal.close();
+
+                    if (data.success) {
+                        // Display result
+                        const resultBox = document.getElementById('resultBox');
+                        const statusClass = `status-${data.data.status}`;
+                        const statusText = {
+                            'pending': 'Menunggu Review',
+                            'approved': 'Disetujui',
+                            'rejected': 'Ditolak'
+                        }[data.data.status] || data.data.status;
+
+                        resultBox.innerHTML = `
+                            <h3 style="color: #667eea; margin-bottom: 15px;">📋 Detail Pendaftaran</h3>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Nomor Registrasi:</strong><br>
+                                <span style="font-size: 20px; color: #667eea;">${data.data.nomor_registrasi}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Nama:</strong><br>
+                                ${data.data.nama_lengkap}
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Email:</strong><br>
+                                ${data.data.email}
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Program Studi:</strong><br>
+                                ${data.data.prodi1}
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Tanggal Daftar:</strong><br>
+                                ${new Date(data.data.tanggal_daftar).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Status:</strong><br>
+                                <span class="status-badge ${statusClass}">${statusText}</span>
+                            </div>
+                            ${data.data.status === 'pending' ?
+                                '<p style="color: #666; font-size: 14px; margin-top: 20px;">⏳ Status pendaftaran Anda sedang dalam proses review. Harap tunggu konfirmasi lebih lanjut.</p>' : ''}
+                            ${data.data.status === 'approved' ?
+                                '<p style="color: #28a745; font-size: 14px; margin-top: 20px;">✅ Selamat! Pendaftaran Anda telah disetujui. Silakan tunggu informasi selanjutnya melalui email.</p>' : ''}
+                            ${data.data.status === 'rejected' ?
+                                '<p style="color: #dc3545; font-size: 14px; margin-top: 20px;">❌ Maaf, pendaftaran Anda belum dapat disetujui. Silakan hubungi panitia untuk informasi lebih lanjut.</p>' : ''}
+                        `;
+                        resultBox.style.display = 'block';
+
+                        // Show success notification
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data Ditemukan!',
+                            text: 'Status pendaftaran berhasil ditemukan',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        // Hide result box
+                        document.getElementById('resultBox').style.display = 'none';
+
+                        // Show error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Data Tidak Ditemukan',
+                            text: data.message || 'Nomor registrasi tidak ditemukan. Pastikan nomor yang Anda masukkan benar.',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    console.error('Error:', error);
+
+                    // Hide result box
+                    document.getElementById('resultBox').style.display = 'none';
+
+                    // Show error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan',
+                        text: 'Tidak dapat menghubungi server. Pastikan server PHP sedang berjalan.',
+                        confirmButtonText: 'OK'
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>

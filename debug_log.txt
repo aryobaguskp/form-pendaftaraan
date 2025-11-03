@@ -1,0 +1,80 @@
+2025-10-31 22:12:03 - Script started
+2025-10-31 22:12:03 - POST received
+POST Data: Array
+(
+    [namaLengkap] => Aryo Bagus
+    [tempatLahir] => Sidoarjo
+    [tanggalLahir] => 2004-07-09
+    [jenisKelamin] => Laki-laki
+    [agama] => Kristen
+    [alamat] => Perumahan Wahyu Taman Sarirogo Blok AN 19
+    [noTelepon] => 089662134893
+    [email] => aryobaguskp@gmail.com
+    [nik] => 3512348872670001
+    [asalSekolah] => SMA Untung Suropati Sidoarjo
+    [jurusanSekolah] => IPA
+    [tahunLulus] => 2022
+    [noIjazah] => 89217389621936
+    [nilaiRata] => 90
+    [namaAyah] => Kristanto
+    [namaIbu] => Magdalena
+    [pekerjaanAyah] => Karyawan Swasta
+    [pekerjaanIbu] => Karyawan Swasta
+    [pendidikanAyah] => S1
+    [pendidikanIbu] => S1
+    [alamatOrtu] => Perumahan Wahyu Taman Sarirogo Blok AN 19
+    [noTeleponOrtu] => 08967123872
+    [penghasilan] => 3-5 juta
+    [namaWali] => 
+    [prodi1] => Teknik Informatika
+    [prodi2] => Sistem Informasi
+    [jalurPendaftaran] => Reguler
+    [prestasi] => 
+    [organisasi] => Osis
+    [persetujuan] => on
+)
+
+FILES Data: Array
+(
+    [pasFoto] => Array
+        (
+            [name] => foto nisa.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php3300.tmp
+            [error] => 0
+            [size] => 87980
+        )
+
+    [uploadIjazah] => Array
+        (
+            [name] => download.jpeg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php3301.tmp
+            [error] => 0
+            [size] => 10836
+        )
+
+    [uploadRapor] => Array
+        (
+            [name] => IMG-20220716-WA0046.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php3311.tmp
+            [error] => 0
+            [size] => 50435
+        )
+
+    [suratSehat] => Array
+        (
+            [name] => kucing.jpeg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php3322.tmp
+            [error] => 0
+            [size] => 4664
+        )
+
+)
+
+Nomor registrasi: PMB20255006
+Pas foto uploaded: 69052623405dd_1761945123.jpg
+Executing query...
+SUCCESS! Data saved with ID: 3

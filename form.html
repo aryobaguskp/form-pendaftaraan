@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Mahasiswa Baru</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Form Pendaftaran Mahasiswa Baru</h1>
+            <p>Silakan isi formulir di bawah ini dengan lengkap dan benar</p>
+        </div>
+
+        <div class="step-nav">
+            <div class="step-container">
+                <div class="step-item active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <div class="step-title">Data Pribadi</div>
+                        <div class="step-desc">Informasi calon mahasiswa</div>
+                    </div>
+                </div>
+                <div class="step-item" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <div class="step-title">Data Pendidikan</div>
+                        <div class="step-desc">Riwayat pendidikan</div>
+                    </div>
+                </div>
+                <div class="step-item" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <div class="step-title">Data Orang Tua</div>
+                        <div class="step-desc">Informasi orang tua/wali</div>
+                    </div>
+                </div>
+                <div class="step-item" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-info">
+                        <div class="step-title">Program Studi</div>
+                        <div class="step-desc">Pilihan jurusan</div>
+                    </div>
+                </div>
+                <div class="step-item" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-info">
+                        <div class="step-title">Data Pendukung</div>
+                        <div class="step-desc">Prestasi & dokumen</div>
+                    </div>
+                </div>
+                <div class="step-item" data-step="6">
+                    <div class="step-number">6</div>
+                    <div class="step-info">
+                        <div class="step-title">Konfirmasi</div>
+                        <div class="step-desc">Review & submit</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="form-content">
+            <!-- FORM DENGAN ACTION LANGSUNG KE save.php -->
+            <form id="registrationForm" action="save.php" method="POST" enctype="multipart/form-data">
+
+                <!-- Step 1: Data Pribadi -->
+                <div class="section active" data-section="1">
+                    <h2 class="section-title">1. Data Pribadi Calon Mahasiswa</h2>
+
+                    <div class="form-group">
+                        <label for="namaLengkap">Nama Lengkap <span class="required">*</span></label>
+                        <input type="text" id="namaLengkap" name="namaLengkap" required>
+                        <span class="error" id="error-namaLengkap">Nama lengkap harus diisi</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tempatLahir">Tempat Lahir <span class="required">*</span></label>
+                            <input type="text" id="tempatLahir" name="tempatLahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggalLahir">Tanggal Lahir <span class="required">*</span></label>
+                            <input type="date" id="tanggalLahir" name="tanggalLahir" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jenis Kelamin <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="jenisKelamin" value="Laki-laki" required>
+                                    Laki-laki</label>
+                                <label><input type="radio" name="jenisKelamin" value="Perempuan"> Perempuan</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="agama">Agama <span class="required">*</span></label>
+                            <select id="agama" name="agama" required>
+                                <option value="">-- Pilih Agama --</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat">Alamat Lengkap <span class="required">*</span></label>
+                        <textarea id="alamat" name="alamat" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noTelepon">Nomor Telepon/HP <span class="required">*</span></label>
+                            <input type="tel" id="noTelepon" name="noTelepon" placeholder="08xxxxxxxxxx" required>
+                            <span class="error" id="error-noTelepon">Nomor telepon tidak valid</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+                            <span class="error" id="error-email">Email tidak valid</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nik">Nomor KTP/NIK <span class="required">*</span></label>
+                            <input type="text" id="nik" name="nik" maxlength="16" placeholder="16 digit" required>
+                            <span class="error" id="error-nik">NIK harus 16 digit angka</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="pasFoto">Pas Foto (3x4) <span class="required">*</span></label>
+                            <input type="file" id="pasFoto" name="pasFoto" accept="image/*" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Data Pendidikan -->
+                <div class="section" data-section="2">
+                    <h2 class="section-title">2. Data Pendidikan Sebelumnya</h2>
+
+                    <div class="form-group">
+                        <label for="asalSekolah">Asal Sekolah <span class="required">*</span></label>
+                        <input type="text" id="asalSekolah" name="asalSekolah" placeholder="Nama SMA/SMK/MA" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="jurusanSekolah">Jurusan di Sekolah <span class="required">*</span></label>
+                            <input type="text" id="jurusanSekolah" name="jurusanSekolah"
+                                placeholder="IPA/IPS/Teknik, dll" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tahunLulus">Tahun Lulus <span class="required">*</span></label>
+                            <input type="number" id="tahunLulus" name="tahunLulus" min="2000" max="2025"
+                                placeholder="2024" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noIjazah">Nomor Ijazah/STTB <span class="required">*</span></label>
+                            <input type="text" id="noIjazah" name="noIjazah" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nilaiRata">Nilai Rata-rata <span class="required">*</span></label>
+                            <input type="number" id="nilaiRata" name="nilaiRata" step="0.01" min="0" max="100"
+                                placeholder="85.50" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Data Orang Tua -->
+                <div class="section" data-section="3">
+                    <h2 class="section-title">3. Data Orang Tua/Wali</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="namaAyah">Nama Ayah <span class="required">*</span></label>
+                            <input type="text" id="namaAyah" name="namaAyah" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="namaIbu">Nama Ibu <span class="required">*</span></label>
+                            <input type="text" id="namaIbu" name="namaIbu" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pekerjaanAyah">Pekerjaan Ayah <span class="required">*</span></label>
+                            <input type="text" id="pekerjaanAyah" name="pekerjaanAyah" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaanIbu">Pekerjaan Ibu <span class="required">*</span></label>
+                            <input type="text" id="pekerjaanIbu" name="pekerjaanIbu" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pendidikanAyah">Pendidikan Ayah <span class="required">*</span></label>
+                            <select id="pendidikanAyah" name="pendidikanAyah" required>
+                                <option value="">-- Pilih --</option>
+                                <option value="SD">SD</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                                <option value="D3">D3</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendidikanIbu">Pendidikan Ibu <span class="required">*</span></label>
+                            <select id="pendidikanIbu" name="pendidikanIbu" required>
+                                <option value="">-- Pilih --</option>
+                                <option value="SD">SD</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                                <option value="D3">D3</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamatOrtu">Alamat Orang Tua <span class="required">*</span></label>
+                        <textarea id="alamatOrtu" name="alamatOrtu" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noTeleponOrtu">No. Telepon Orang Tua <span class="required">*</span></label>
+                            <input type="tel" id="noTeleponOrtu" name="noTeleponOrtu" required>
+                            <span class="error" id="error-noTeleponOrtu">No. telepon orang tua tidak valid</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="penghasilan">Penghasilan Orang Tua/bulan <span class="required">*</span></label>
+                            <select id="penghasilan" name="penghasilan" required>
+                                <option value="">-- Pilih --</option>
+                                <option value="< 1 juta">
+                                    < Rp 1.000.000</option>
+                                <option value="1-3 juta">Rp 1.000.000 - 3.000.000</option>
+                                <option value="3-5 juta">Rp 3.000.000 - 5.000.000</option>
+                                <option value="5-10 juta">Rp 5.000.000 - 10.000.000</option>
+                                <option value="> 10 juta">> Rp 10.000.000</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="namaWali">Nama Wali (jika ada)</label>
+                        <input type="text" id="namaWali" name="namaWali">
+                    </div>
+                </div>
+
+                <!-- Step 4: Program Studi -->
+                <div class="section" data-section="4">
+                    <h2 class="section-title">4. Pilihan Program Studi</h2>
+
+                    <div class="form-group">
+                        <label for="prodi1">Pilihan Program Studi 1 <span class="required">*</span></label>
+                        <select id="prodi1" name="prodi1" required>
+                            <option value="">-- Pilih Program Studi --</option>
+                            <option value="Teknik Informatika">Teknik Informatika</option>
+                            <option value="Sistem Informasi">Sistem Informasi</option>
+                            <option value="Teknik Elektro">Teknik Elektro</option>
+                            <option value="Teknik Mesin">Teknik Mesin</option>
+                            <option value="Teknik Sipil">Teknik Sipil</option>
+                            <option value="Manajemen">Manajemen</option>
+                            <option value="Akuntansi">Akuntansi</option>
+                            <option value="Hukum">Hukum</option>
+                            <option value="Psikologi">Psikologi</option>
+                            <option value="Arsitektur">Arsitektur</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodi2">Pilihan Program Studi 2</label>
+                        <select id="prodi2" name="prodi2">
+                            <option value="">-- Pilih Program Studi --</option>
+                            <option value="Teknik Informatika">Teknik Informatika</option>
+                            <option value="Sistem Informasi">Sistem Informasi</option>
+                            <option value="Teknik Elektro">Teknik Elektro</option>
+                            <option value="Teknik Mesin">Teknik Mesin</option>
+                            <option value="Teknik Sipil">Teknik Sipil</option>
+                            <option value="Manajemen">Manajemen</option>
+                            <option value="Akuntansi">Akuntansi</option>
+                            <option value="Hukum">Hukum</option>
+                            <option value="Psikologi">Psikologi</option>
+                            <option value="Arsitektur">Arsitektur</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jalurPendaftaran">Jalur Pendaftaran <span class="required">*</span></label>
+                        <select id="jalurPendaftaran" name="jalurPendaftaran" required>
+                            <option value="">-- Pilih Jalur --</option>
+                            <option value="Reguler">Reguler</option>
+                            <option value="Beasiswa">Beasiswa</option>
+                            <option value="Undangan">Undangan</option>
+                            <option value="Prestasi">Prestasi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 5: Data Pendukung -->
+                <div class="section" data-section="5">
+                    <h2 class="section-title">5. Data Pendukung</h2>
+
+                    <div class="form-group">
+                        <label for="prestasi">Prestasi Akademik/Non-Akademik</label>
+                        <textarea id="prestasi" name="prestasi"
+                            placeholder="Jelaskan prestasi yang pernah diraih (opsional)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organisasi">Kegiatan Organisasi</label>
+                        <textarea id="organisasi" name="organisasi"
+                            placeholder="Jelaskan kegiatan organisasi yang pernah diikuti (opsional)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uploadIjazah">Upload Ijazah/SKL</label>
+                        <input type="file" id="uploadIjazah" name="uploadIjazah" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uploadRapor">Upload Rapor</label>
+                        <input type="file" id="uploadRapor" name="uploadRapor" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="suratSehat">Surat Keterangan Sehat</label>
+                        <input type="file" id="suratSehat" name="suratSehat" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                </div>
+
+                <!-- Step 6: Konfirmasi -->
+                <div class="section" data-section="6">
+                    <h2 class="section-title">6. Review & Konfirmasi</h2>
+
+                    <div id="reviewData"
+                        style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                        <p style="text-align: center; color: #666;">Data Anda akan ditampilkan di sini untuk review</p>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="persetujuan" name="persetujuan" required>
+                                Saya menyatakan bahwa data yang saya isikan adalah benar dan dapat dipertanggungjawabkan
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons">
+                    <button type="button" class="btn-prev" id="btnPrev" disabled>← Sebelumnya</button>
+                    <button type="button" class="btn-next" id="btnNext">Selanjutnya →</button>
+                    <button type="submit" class="btn-submit" id="btnSubmit" style="display: none;"> Submit
+                        Pendaftaran</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="java.js"></script>
+</body>
+
+</html>

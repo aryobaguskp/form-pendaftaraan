@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Mahasiswa Baru</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card-desc {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            font-size: 24px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .admin-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Pendaftaran Mahasiswa Baru</h1>
+            <p>Tahun Akademik 2024/2025</p>
+        </div>
+
+        <div class="cards">
+            <div class="card" onclick="window.location='index.html'">
+                <div class="card-icon">📝</div>
+                <div class="card-title">Daftar Sekarang</div>
+                <div class="card-desc">
+                    Isi formulir pendaftaran online dan dapatkan nomor registrasi Anda
+                </div>
+                <a href="index.html" class="btn">Mulai Pendaftaran →</a>
+            </div>
+
+            <div class="card" onclick="window.location='tracking.html'">
+                <div class="card-icon">🔍</div>
+                <div class="card-title">Cek Status</div>
+                <div class="card-desc">
+                    Lacak status pendaftaran Anda dengan nomor registrasi
+                </div>
+                <a href="tracking.html" class="btn">Tracking Status →</a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2 class="info-title">📋 Informasi Pendaftaran</h2>
+            <ul class="info-list">
+                <li>
+                    <span class="info-icon">📅</span>
+                    <div>
+                        <strong>Periode Pendaftaran</strong><br>
+                        <span style="color: #666;">1 Januari - 31 Maret 2024</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="info-icon">📄</span>
+                    <div>
+                        <strong>Persyaratan</strong><br>
+                        <span style="color: #666;">Lulusan SMA/SMK/MA sederajat</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="info-icon">💰</span>
+                    <div>
+                        <strong>Biaya Pendaftaran</strong><br>
+                        <span style="color: #666;">GRATIS</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="info-icon">📧</span>
+                    <div>
+                        <strong>Kontak</strong><br>
+                        <span style="color: #666;">Email: pmb@university.ac.id | Telp: (021) 123-4567</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="info-icon">⏱️</span>
+                    <div>
+                        <strong>Waktu Proses</strong><br>
+                        <span style="color: #666;">Status akan diumumkan maksimal 7 hari kerja</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="dashboard.php" class="admin-link">
+        🔐 Admin Login
+    </a>
+</body>
+
+</html>
